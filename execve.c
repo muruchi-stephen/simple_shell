@@ -1,34 +1,5 @@
 /* #include "shell.h"
 
-void execute_command(const char *command)
-{
-    pid_t child_pid;
-    child_pid = fork();
-
-    if (child_pid == -1)
-    {
-        perror("fork");
-        exit(EXIT_FAILURE);
-    }
-    else if (child_pid == 0)
-    {
-        char command_buffer[1024];  Create a buffer to store the command
-        strcpy(command_buffer, command);  Copy the command to the buffer
-
-        char *args[] = {command_buffer, NULL};
-        char *envp[] = {NULL};
-
-        execve(command_buffer, args, envp);
-        execlp(command, command, (char *)NULL);
-        perror("execve");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-        wait(NULL);
-    }
-}*/
-
 
 /*void execute_command(const char* path, const char* argv[], char* const envp[])
 {
