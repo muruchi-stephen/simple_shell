@@ -12,7 +12,8 @@
 void display_prompt(void);
 void printing_commands(const char *commands);
 void execute_command(const char *command);
-void read_command(char *command, size_t size);
+/*void read_command(char *command, size_t size);*/
+void read_command(char **command);
 
 
 #endif
