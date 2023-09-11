@@ -1,0 +1,38 @@
+void execute_command(const char *command)
+{
+    pid_t child_pid;
+    child_pid = fork();
+
+    if (child_pid == -1)
+    {
+        printing_commands("Error forking process.\n");
+        exit(EXIT_FAILURE);
+    }
+    else if (child_pid == 0)
+    {
+        char *args[128];
+        int arg_count = 0;
+
+        char *token = strtok((char *)command, " ");
+        while (token != NULL)
+        {
+            args[arg_count++] = token;
+            token = strtok(NULL, " ");
+        }
+        args[arg_count] = NULL;
+
+        if (access(args[0], F_OK) != 0) /*Check if the file exists*/
+        {
+            perror(args[0]); /*Print the error message*/ 
+            exit(EXIT_FAILURE);
+        }
+
+        execve(args[0], args, NULL); /*Pass the arguments to the command*/
+        perror(args[0]); /*Print the error message if execve fails*/ 
+        exit(EXIT_FAILURE);
+    }
+    else 
+    {
+        wait(NULL);
+    }
+}
